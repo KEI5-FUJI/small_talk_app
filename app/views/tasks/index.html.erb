@@ -4,7 +4,6 @@
 <% @all_tasks.each do |task| %>
 <ol class="tasks">
   <%= task.content %>
-  <%= task.created_at %>
-  <%= link_to "削除", task_url(task), method: :delete, data: {confirm: "You sure?"} %>
+  <%= link_to "削除", task_url(task), method: :delete, data: {confirm: "削除してもよろしいですか？"} %>
 </ol>
 <% end %>

@@ -10,10 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2022_01_30_035122) do
-=======
-ActiveRecord::Schema.define(version: 2022_01_31_051209) do
+ActiveRecord::Schema.define(version: 2022_01_31_080255) do
 
   create_table "tasks", force: :cascade do |t|
     t.string "content"
@@ -21,7 +18,6 @@ ActiveRecord::Schema.define(version: 2022_01_31_051209) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "is_checked?", default: false, null: false
   end
->>>>>>> TasksSet
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false

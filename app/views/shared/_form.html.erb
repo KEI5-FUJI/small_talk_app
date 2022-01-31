@@ -1,0 +1,9 @@
+ <div class="container task-form">
+   <%= form_with(model: @task) do |f| %>
+    <div class="content-form">
+      <%= f.label :content, "タスク" %>
+      <%= f.text_area :content, class: 'form-control', class: "task_content" %>
+      <%= f.submit class: "btn btn-primary" %>
+    </div>
+   <% end %>
+   </div>

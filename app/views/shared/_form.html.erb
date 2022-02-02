@@ -1,9 +1,12 @@
  <div class="container task-form">
-   <%= form_with(model: @task) do |f| %>
-    <div class="content-form">
-      <%= f.label :content, "タスク" %>
-      <%= f.text_area :content, class: 'form-control', class: "task_content" %>
-      <%= f.submit class: "btn btn-primary" %>
-    </div>
-   <% end %>
-   </div>
+   <div class="forms">
+      <%= form_with(model: @task) do |f| %>
+          <div class="text-field">
+            <%= f.text_area :content, class: "text-field" , placeholder: "追加したいタスクを入力してください" %>
+          </div>
+          <div class="text-right">
+            <%= f.submit class: "btn btn-primary" %>
+          </div>
+      <% end %>
+  </div>
+</div>

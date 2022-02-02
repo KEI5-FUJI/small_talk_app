@@ -64,6 +64,7 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     autoprefixer-rails (10.4.2.0)
       execjs (~> 2)
+    bcrypt (3.1.13)
     bindex (0.8.1)
     bootsnap (1.10.2)
       msgpack (~> 1.2)
@@ -85,10 +86,6 @@ GEM
     concurrent-ruby (1.1.9)
     crass (1.0.6)
     diff-lcs (1.5.0)
-    dotenv (2.7.6)
-    dotenv-rails (2.7.6)
-      dotenv (= 2.7.6)
-      railties (>= 3.2)
     erubi (1.10.0)
     execjs (2.8.1)
     factory_bot (6.2.0)
@@ -99,7 +96,6 @@ GEM
     ffi (1.15.5)
     globalid (1.0.0)
       activesupport (>= 5.0)
-    hashie (5.0.0)
     i18n (1.9.1)
       concurrent-ruby (~> 1.0)
     jbuilder (2.11.5)
@@ -126,16 +122,6 @@ GEM
       racc (~> 1.4)
     nokogiri (1.13.1-x86_64-linux)
       racc (~> 1.4)
-    oauth (0.5.8)
-    omniauth (1.9.1)
-      hashie (>= 3.4.6)
-      rack (>= 1.6.2, < 3)
-    omniauth-oauth (1.2.0)
-      oauth
-      omniauth (>= 1.0, < 3)
-    omniauth-twitter (1.4.0)
-      omniauth-oauth (~> 1.1)
-      rack
     pg (1.1.4)
     public_suffix (4.0.6)
     puma (5.6.1)
@@ -148,6 +134,9 @@ GEM
       rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
+    rack_session_access (0.2.0)
+      builder (>= 2.0.0)
+      rack (>= 1.0.0)
     rails (6.1.4.4)
       actioncable (= 6.1.4.4)
       actionmailbox (= 6.1.4.4)
@@ -168,6 +157,9 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.4.2)
       loofah (~> 2.3)
+    rails-i18n (7.0.1)
+      i18n (>= 0.7, < 2)
+      railties (>= 6.0.0, < 8)
     railties (6.1.4.4)
       actionpack (= 6.1.4.4)
       activesupport (= 6.1.4.4)
@@ -257,19 +249,20 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  bcrypt (= 3.1.13)
   bootsnap (>= 1.4.4)
   bootstrap-sass (= 3.4.1)
   byebug
   capybara (>= 3.26)
-  dotenv-rails
   factory_bot_rails
   jbuilder (~> 2.7)
   listen (~> 3.3)
-  omniauth-twitter
   pg (= 1.1.4)
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
+  rack_session_access
   rails (~> 6.1.4, >= 6.1.4.4)
+  rails-i18n
   rspec-rails
   sass-rails (>= 6)
   selenium-webdriver

@@ -1,9 +1,13 @@
 <% provide(:title, "Tasks") %>
 <%= render 'layouts/header' %>
-<%= render 'shared/form' %>
-<% @all_tasks.each do |task| %>
-<ol class="tasks">
-  <%= task.content %>
-  <%= link_to "削除", task_url(task), method: :delete, data: {confirm: "削除してもよろしいですか？"} %>
-</ol>
-<% end %>
+  <div class="col-12 col-md-4">
+    <%= render 'shared/form' %>
+  </div>
+  <div class="col-12 col-md-8">
+    <% @all_tasks.each do |task| %>
+    <ol class="tasks">
+      <%= task.content %>
+      <%= link_to "削除", task_url(task), method: :delete, data: {confirm: "削除してもよろしいですか？"} %>
+    </ol>
+    <% end %>
+  </div>

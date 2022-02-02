@@ -3,7 +3,11 @@
      <%= link_to "ツヅケル", "/", id: "logo" %>
      <nav>
        <ul class="nav navbar-nav navbar-right">
-       <li><%= link_to "ログイン", '#' %></li>
+       <% if logged_in? %>
+         <li><%= link_to "ログアウト", '/logout' %></li>
+       <% else %>
+         <li><%= link_to "ログイン", 'auth/twitter', method: :post %></li>
+       <% end %>
      </nav>
    </div>
    </header>

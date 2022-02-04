@@ -14,4 +14,5 @@ Rails.application.routes.draw do
   root 'static_pages#home'
   resources :users
   resources :tasks, only: [:index, :show, :create, :destroy]
+  resources :account_activations, only: [:edit]
 end

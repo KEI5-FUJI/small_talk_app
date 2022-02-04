@@ -1,0 +1,8 @@
+<h1><%= @user.name %>さん、アプリにようこそ!</h1>
+
+<p>
+下のリンクをクリックして登録を完了させてください。
+</p>
+
+<%= link_to "登録を完了させる。", edit_account_activation_url(@user.activation_token,
+                                                    email: @user.email) %>

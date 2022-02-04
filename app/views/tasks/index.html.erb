@@ -1,13 +1,18 @@
 <% provide(:title, "Tasks") %>
 <%= render 'layouts/header' %>
-  <div class="col-12 col-md-4">
-    <%= render 'tasks/_task_form' %>
-  </div>
-  <div class="col-12 col-md-8">
-    <% @all_tasks.each do |task| %>
-    <ol class="tasks">
-      <%= task.content %>
-      <%= link_to "削除", task_url(task), method: :delete, data: {confirm: "削除してもよろしいですか？"} %>
-    </ol>
-    <% end %>
+  <div class="row">
+    <aside class="col-md-4">
+      <section class="user_info">
+      <h1>
+        <%= current_user.name %>
+      </h1>
+    </section>
+      <section class="task_form">
+        <%= render 'tasks/task_form' %>
+      </section>
+    </aside>
+    <div class="col-md-8">
+      <h3>フォロワーのタスク</h3>
+      <%= render 'shared/feed' %>
+    </div>
   </div>

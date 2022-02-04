@@ -1,5 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "ユーザーバリデーションテスト" do
+    let(:task) {FactoryBot.build(:task)}
+    subject {task.valid?}
+
+    it "正しいユーザー" do
+      is_expected.to eq false;
+    end
+  end
 end

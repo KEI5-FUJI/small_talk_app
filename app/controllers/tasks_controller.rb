@@ -1,16 +1,17 @@
 class TasksController < ApplicationController
-  @task_value="タスクを入力してください"
-  @button_value="投稿"
+  include SessionsHelper
+  before_action :logged_in_user, only: [:create, :destroy]
+  before_action :correct_user, only: [:destroy]
 
   def index
-    @all_tasks = Task.all
-    @task = Task.new
+    @task = current_user.tasks.build
+    @feed_items = current_user.feed.all
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if @task.save
-      flash[:seccess] = "タスクを作成しました。"
+      flash[:success] = "タスクを作成しました。"
       redirect_to tasks_url
     else
       render 'tasks/index'
@@ -19,13 +20,18 @@ class TasksController < ApplicationController
 
   def destroy
     Task.find(params[:id]).destroy
-    flash[:seccess] = "タスクを削除しました。"
-    redirect_to tasks_url
+    flash[:success] = "タスクを削除しました。"
+    redirect_to request.referrer || root_url
   end
 
   private
     def task_params
       params.require(:task).permit(:content)
+    end
+
+    def correct_user
+      @task = current_user.tasks.find_by(id: params[:id])
+      redirect_to root_url if @task.nil?
     end
     
 end

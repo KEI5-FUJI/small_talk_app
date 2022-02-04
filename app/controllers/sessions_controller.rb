@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
       if user.activated?
         log_in(user)
         params[:session][:remember_me] == "1" ? remember(user) : forget(user)
-        redirect_beck_or user
+        redirect_back_or user
       else
         flash[:warning] = "アカウントは有効化されていません。送信されたメールからアカウントを有効化してください。"
         redirect_to root_url

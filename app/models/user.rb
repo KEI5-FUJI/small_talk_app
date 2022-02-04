@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   attr_accessor :remember_token, :activation_token
+  has_many :tasks, dependent: :destroy
   before_save :downcase_email
   before_create :create_activation_digest
   validates :name, presence: true, length: {maximum: 50}
@@ -38,6 +39,10 @@ class User < ApplicationRecord
 
   def send_activation_mail
     UserMailer.account_activation(self).deliver_now
+  end
+
+  def feed
+    Task.where("user_id = ?", id)
   end
 
   private

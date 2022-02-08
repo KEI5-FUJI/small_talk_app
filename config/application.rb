@@ -10,7 +10,7 @@ module SmallTalkApp
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
-
+    config.action_view.embed_authenticity_token_in_remote_forms = true
     config.generators do |g|
       g.text_framework :rspec,
          fixtures: false,

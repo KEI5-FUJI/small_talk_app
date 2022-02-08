@@ -105,20 +105,9 @@ p {
 
 
 .text-field {
-  width: 450px;
-  height: 150px;
   border-radius: 5px;
   border: solid 1.5px;
   margin-bottom: 15px;
-}
-
-.text-field:hover {
-  border-color: #00ff7f;
-}
-
-.task-contents {
-  display: flex;
-  justify-content: space-between;
 }
 
 @mixin box_sizing {
@@ -245,4 +234,32 @@ aside {
     margin-bottom: 5px;
   }
 }
+
+.stats {
+  overflow: auto;
+  margin-top: 0;
+  padding: 0;
+  a {
+    float: left;
+    padding: 0 10px;
+    border-left: 1px solid $gray-lighter;
+    color: gray;
+    &:first-child {
+      padding-left: 0;
+      border: 0;
+    }
+    &:hover {
+      text-decoration: none;
+      color: black;
+    }
+  }
+  strong {
+    display: block;
+  }
+}
+
+.users.follow {
+  padding: 0;
+}
+
 

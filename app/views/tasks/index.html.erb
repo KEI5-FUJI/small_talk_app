@@ -3,16 +3,19 @@
   <div class="row">
     <aside class="col-md-4">
       <section class="user_info">
-      <h1>
-        <%= current_user.name %>
-      </h1>
-    </section>
+        <h1>
+          <%= current_user.name %>
+        </h1>
+      </section>
+      <section class="stats">
+        <%= render "shared/stats" %>
+      </section>
       <section class="task_form">
         <%= render 'tasks/task_form' %>
       </section>
     </aside>
     <div class="col-md-8">
-      <h3>フォロワーのタスク</h3>
+      <h3>フォロー中のユーザーのタスク</h3>
       <%= render 'shared/feed' %>
     </div>
   </div>

@@ -1,13 +1,9 @@
- <div class="container task-form">
-   <div class="forms">
-      <%= form_with(model: @task, local: true) do |f| %>
-      <%= render 'shared/error_messages', object: f.object %>
-          <div class="text-field">
-            <%= f.text_area :content, class: "text-field" , placeholder: "追加したいタスクを入力してください" %>
-          </div>
-          <div class="text-right">
-            <%= f.submit "投稿", class: "btn btn-primary" %>
-          </div>
-      <% end %>
+<%= form_with(model: @task, local: true) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div>
+    <%= f.text_area :content, class: "text-field" , placeholder: "追加したいタスクを入力してください" %>
   </div>
-</div>
+  <div class="text-right">
+    <%= f.submit "投稿", class: "btn btn-primary" %>
+  </div>
+<% end %>

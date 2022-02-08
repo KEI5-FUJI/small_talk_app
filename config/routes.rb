@@ -12,7 +12,12 @@ Rails.application.routes.draw do
   delete 'logout', to: 'sessions#destroy'
   get  '/signup',  to: 'users#new'
   root 'static_pages#home'
-  resources :users
+  resources :users do
+    member do 
+      get :following, :followers
+    end
+  end
   resources :tasks, only: [:index, :show, :create, :destroy]
   resources :account_activations, only: [:edit]
+  resources :relationships, only: [:create, :destroy]
 end

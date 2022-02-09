@@ -37,7 +37,8 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.all
+    follows_ids = current_user.following_ids
+    @following_users = User.where(id: follows_ids)
   end
   
   def destroy

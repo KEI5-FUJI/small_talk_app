@@ -17,7 +17,9 @@ Rails.application.routes.draw do
       get :following, :followers
     end
   end
-  resources :tasks, only: [:index, :show, :create, :destroy]
+  resources :tasks, only: [:index, :show, :create, :destroy] do
+    resources :messagerooms, only: [:show, :create, :destroy]
+  end
   resources :account_activations, only: [:edit]
   resources :relationships, only: [:create, :destroy]
 end

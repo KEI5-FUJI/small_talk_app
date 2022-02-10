@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_09_004426) do
+ActiveRecord::Schema.define(version: 2022_02_09_102518) do
 
   create_table "messagerooms", force: :cascade do |t|
     t.integer "owner_id"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2022_02_09_004426) do
     t.integer "task_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["owner_id", "guest_id", "task_id"], name: "index_messagerooms_on_owner_id_and_guest_id_and_task_id", unique: true
     t.index ["task_id"], name: "index_messagerooms_on_task_id"
   end
 
@@ -26,7 +27,9 @@ ActiveRecord::Schema.define(version: 2022_02_09_004426) do
     t.integer "messageroom_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id", null: false
     t.index ["messageroom_id"], name: "index_messages_on_messageroom_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "relationships", force: :cascade do |t|
@@ -45,6 +48,8 @@ ActiveRecord::Schema.define(version: 2022_02_09_004426) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "is_checked?", default: false, null: false
     t.integer "user_id", null: false
+    t.integer "request_count", default: 0
+    t.boolean "is_solved?"
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
@@ -64,5 +69,6 @@ ActiveRecord::Schema.define(version: 2022_02_09_004426) do
 
   add_foreign_key "messagerooms", "tasks"
   add_foreign_key "messages", "messagerooms"
+  add_foreign_key "messages", "users"
   add_foreign_key "tasks", "users"
 end

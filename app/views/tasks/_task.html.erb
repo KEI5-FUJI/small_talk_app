@@ -1,10 +1,10 @@
 <li id="投稿ナンバー-<%= task.id %>">
-  <span class="user"><%= link_to task.user.name, task.user %></span>
-  <span class="content"><%= task.content %></span>
-  <span class="timestamp">
-    <%= time_ago_in_words(task.created_at) %>日前に投稿
-  </span>
-  <% if current_user?(task.user) %>
-    <%= link_to "削除", task, method: :delete, data: { confirm: "削除します。大丈夫ですか?" } %>
-  <% end %>
+        <span class="user"><%= link_to task.user.name, task.user %></span>
+        <span class="content"><%= task.content %></span>
+        <span class="timestamp">
+          <%= time_ago_in_words(task.created_at) %>
+        </span>
+        <% if current_user?(task.user) %>
+          <%= link_to "削除", task, method: :delete, data: { confirm: "削除します。大丈夫ですか?" } %>
+        <% end %>
 </li>

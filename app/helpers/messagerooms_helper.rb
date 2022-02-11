@@ -6,4 +6,8 @@ module MessageroomsHelper
   def messageroom_exist?(task)
     task.messagerooms.where(owner_id: task.user, guest_id: current_user.id).any?
   end
+
+  def owner_or_guest?(task)
+     
+  end
 end

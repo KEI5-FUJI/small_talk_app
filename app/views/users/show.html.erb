@@ -27,13 +27,15 @@
               <%= link_to "タスクのメッセージルーム一覧へ", task_messagerooms_path(task_id: task.id) %>
             <% end %>
             <% unless is_current_user_task?(task) %>
-              <% if messageroom_exist?(task) %>
-                <%= link_to "メッセージルームに行く", task_messageroom_path(task_id: task.id, id: task.messagerooms.find_by(owner_id: task.user, guest_id: current_user.id).id) %>
-              <% else %>
-                <%= form_with(url: task_messagerooms_url(task.id)) do |f| %>
-                  <%= f.submit "貸せる", class: "btn btn-primary" %>
-                <% end %>   
-              <% end %> 
+              <% if task.user.followers.include?(current_user) %>
+                <% if messageroom_exist?(task) %>
+                  <%= link_to "メッセージルームに行く", task_messageroom_path(task_id: task.id, id: task.messagerooms.find_by(owner_id: task.user, guest_id: current_user.id).id) %>
+                <% else %>
+                  <%= form_with(url: task_messagerooms_url(task.id)) do |f| %>
+                    <%= f.submit "貸せる", class: "btn btn-primary" %>
+                  <% end %>   
+                <% end %>
+              <% end %>
             <% end %>     
           </li>
         <% end %>

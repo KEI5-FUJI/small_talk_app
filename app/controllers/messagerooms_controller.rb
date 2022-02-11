@@ -2,9 +2,13 @@ class MessageroomsController < ApplicationController
   include SessionsHelper
   include MessageroomsHelper
   before_action :logged_in_user
+  before_action :set_task
+  before_action :is_task_messageroom_list_current_user, only: [:index]
+  before_action :is_guest_or_owner, only: [:show]
+  before_action :is_owner, only: [:destroy]
+  before_action :is_follower_of_owner, only: [:create]
   
   def create
-    @task=Task.find_by(id: params[:task_id])
     if not_created_messageroom?(@task)
        @messageroom=@task.messagerooms.build(owner_id: @task.user_id, guest_id: current_user.id)
        if @messageroom.save
@@ -12,15 +16,14 @@ class MessageroomsController < ApplicationController
         redirect_to task_messageroom_url(@task.id, @messageroom.id)
        else
         flash[:danger] = "メッセージルームの作成に失敗しました。"
-        redirect_to tasks_url
+        redirect_back_or tasks_url
        end
     else
-      task_messageroom_url(@task.messagerooms.find_by(owner_id: @task.user_id, guest_id: current_user.id))
+       task_messageroom_url(@task.messagerooms.find_by(owner_id: @task.user_id, guest_id: current_user.id))
     end
   end
 
   def destroy
-    @task = Task.find(params[:task_id])
     @task.toggle(:is_solved?)
     if @task.is_solved?
       @task.messagerooms.each do |room|
@@ -33,7 +36,6 @@ class MessageroomsController < ApplicationController
   end
 
   def show
-    @task = Task.find(params[:task_id])
     if @messageroom = @task.messagerooms.find(params[:id])
       @room_messages = @messageroom.messages
       @message = @messageroom.messages.build
@@ -43,7 +45,41 @@ class MessageroomsController < ApplicationController
   end
 
   def index
-    @task = Task.find(params[:task_id])
     @messagerooms = @task.messagerooms
   end
+
+  private 
+    def set_task
+      @task = Task.find(params[:task_id])
+    end
+
+    def is_task_messageroom_list_current_user
+      unless current_user == Task.find(params[:task_id]).user
+        redirect_back_or tasks_path
+      end
+    end
+
+    def is_guest_or_owner
+      @messageroom = Messageroom.find(params[:id])
+      owner = User.find(@messageroom.owner_id)
+      guest = User.find(@messageroom.guest_id)
+      unless current_user == owner || current_user == guest
+        redirect_back_or tasks_path
+      end
+    end
+
+    def is_owner
+      @messageroom = Messageroom.find(params[:id])
+      owner = User.find(@messageroom.owner_id)
+      unless current_user == owner
+        redirect_back_or tasks_path
+      end
+    end
+
+    def is_follower_of_owner
+      owner = Task.find(params[:task_id]).user
+      unless owner.followers.include?(current_user)
+        redirect_back_or tasks_path
+      end
+    end
 end

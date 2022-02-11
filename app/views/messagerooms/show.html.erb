@@ -11,7 +11,11 @@
   </aside>
   <div class="col-md-8">
     <div class="messages_title">
-      <h3><%= link_to @task.user.name, user_path(@task.user) %>のメッセージルーム</h3>
+      <% if @messageroom.owner_id == current_user.id %>
+        <h3><%= link_to User.find(@messageroom.guest_id).name, user_path(User.find(@messageroom.guest_id)) %>とのメッセージ</h3>
+      <% else %>
+         <h3><%= link_to @task.user.name, user_path(@task.user) %>とのメッセージ</h3>
+      <% end %>
       <%= render 'messagerooms/task_finish_form' %>
     </div>
     <%= render 'messagerooms/messages' %>

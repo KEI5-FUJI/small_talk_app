@@ -47,20 +47,6 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
 
-  def following
-    @title = "フォロ中のユーザー"
-    @user = User.find(parms[:id])
-    @users = @user.following
-    render 'show_follow'
-  end
-
-  def followers
-    @title = "フォロワー"
-    @user = User.find(parms[:id])
-    @users = @user.followers
-    render 'show_follow'
-  end
-
   private
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)

@@ -1,0 +1,7 @@
+<% if current_user.id == @messageroom.owner_id %>
+  <div class="">
+    <%= form_with(url: task_messageroom_url(task_id: @task.id, id: @messageroom.id), method: :delete, local: true) do |f| %>
+      <%= f.submit "解決にする", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+<% end %>

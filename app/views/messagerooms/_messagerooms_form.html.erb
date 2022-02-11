@@ -1,0 +1,8 @@
+<%= form_with(model: @message, url: task_messageroom_messages_url(task_id: @task.id, messageroom_id: @messageroom.id), scope: :message, local: true) do |f| %>
+  <div>
+    <%= f.text_area :message, class: "text-field", placeholder: "メッセージを入力してください" %>
+  </div>
+  <div class="text-right">
+    <%= f.submit "メッセージ投稿", class: "btn btn-primary" %>
+  </div>
+<% end %>

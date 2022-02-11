@@ -1,1 +1,19 @@
-メッセージルーム作成
+<% provide(:title, "MessageRoom") %>
+<%= render 'layouts/header' %>
+<div class="row">
+  <aside class="col-md-4">
+    <h2>
+      <%= "借りたいもの | " + @task.content %>
+    </h2>
+    <section class="message_form">
+      <%= render 'messagerooms/messagerooms_form' %>
+    </section>
+  </aside>
+  <div class="col-md-8">
+    <div class="messages_title">
+      <h3><%= link_to @task.user.name, user_path(@task.user) %>のメッセージルーム</h3>
+      <%= render 'messagerooms/task_finish_form' %>
+    </div>
+    <%= render 'messagerooms/messages' %>
+  </div>
+</div>

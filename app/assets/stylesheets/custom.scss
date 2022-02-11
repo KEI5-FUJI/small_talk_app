@@ -86,11 +86,6 @@ p {
   background-color: black;
 }
 
-.task-form {
-  display: flex;
-  margin-bottom: 30px;
-}
-
 .tasks {
   border-top: solid 0.5px;
   padding: 40px 30px;
@@ -261,5 +256,44 @@ aside {
 .users.follow {
   padding: 0;
 }
+
+.messages_title {
+  border-bottom: solid 1px;
+  margin-bottom: 10px;
+}
+
+.guest-text-box {
+  background-color: #e6e6fa;
+}
+
+.owner-text-box {
+  background-color: #98fb98;
+}
+
+.message-text-box {
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 5px;
+  display: inline-block;
+  max-width: 350px;
+  text-align: left;
+}
+
+.guest-message-list {
+  text-align: right;
+}
+
+.owner-message-list {
+  text-align: left;
+}
+
+.messageroom-list-item {
+  margin-bottom: 15px;
+}
+
+
+
+
+
 
 

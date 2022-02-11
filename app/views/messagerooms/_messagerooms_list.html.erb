@@ -1,0 +1,6 @@
+<% @messagerooms.each do |messageroom| %>
+  <div class="messageroom-list-item">
+    <span class="user"><%= User.find(messageroom.guest_id).name + "とのメッセージルーム" %></span>
+    <%= link_to "メッセージルームに入る", task_messageroom_path(task_id: messageroom.task.id, id: messageroom.id) %>
+  </div>
+<% end %>

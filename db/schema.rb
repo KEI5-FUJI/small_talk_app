@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_09_102518) do
+ActiveRecord::Schema.define(version: 2022_02_11_021441) do
 
   create_table "messagerooms", force: :cascade do |t|
     t.integer "owner_id"
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 2022_02_09_102518) do
     t.boolean "is_checked?", default: false, null: false
     t.integer "user_id", null: false
     t.integer "request_count", default: 0
-    t.boolean "is_solved?"
+    t.boolean "is_solved?", default: false
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 

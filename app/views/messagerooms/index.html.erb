@@ -1,0 +1,15 @@
+<% provide(:title, "Messageroom_list") %>
+<%= render 'layouts/header' %>
+<div class="row">
+  <aside class="col-md-4">
+    <h2>
+      <%= @task.content + "のメッセージルーム" %>
+    </h2>
+  </aside>
+  <div class="col-md-8">
+    <div class="messages_title">
+      <h3>メッセージルームリスト</h3>
+    </div>
+    <%= render "messagerooms/messagerooms_list" %>
+  </div>
+</div>

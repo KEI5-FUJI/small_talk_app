@@ -1,0 +1,17 @@
+<% if @room_messages %>
+  <% @room_messages.each do |message| %>
+    <% if message.user_id == @messageroom.owner_id %>
+      <div class="owner-message-list">
+        <div class="owner-text-box message-text-box">
+          <%= message.message %>
+        </div>
+      </div><br>
+      <% else %>
+      <div class="guest-message-list">
+        <div class="guest-text-box message-text-box">
+          <%= message.message %>
+        </div>
+      </div><br>
+    <% end %>
+  <% end %>
+<% end %>

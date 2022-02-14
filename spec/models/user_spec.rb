@@ -2,11 +2,12 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   describe "ユーザーバリデーションテスト" do
-    let(:user) {FactoryBot.create(:user)}
+    let(:user) {FactoryBot.build(:user)}
     subject {user.valid?}
 
     context '正しい時' do
       it 'ユーザーは正しいか?' do
+        user.save
         is_expected.to eq true;
       end
     end
@@ -14,6 +15,7 @@ RSpec.describe User, type: :model do
     context "名前が空欄の時" do
       it 'ユーザーは正しくないか?' do
         user.name = "  "
+        user.save
         is_expected.to eq false
       end
     end
@@ -21,6 +23,7 @@ RSpec.describe User, type: :model do
     context "メールが空欄の時" do
       it 'ユーザーは正しくないか?' do
         user.email = "  "
+        user.save
         is_expected.to eq false
       end
     end
@@ -28,6 +31,7 @@ RSpec.describe User, type: :model do
     context "名前が長すぎる時" do
       it 'ユーザーは正しくないか?' do
         user.name = " a"*51
+        user.save
         is_expected.to eq false
       end
     end
@@ -35,10 +39,43 @@ RSpec.describe User, type: :model do
     context "メールが長すぎるの時" do
       it 'ユーザーは正しくないか?' do
         user.email = "a"*256
+        user.save
         is_expected.to eq false
       end
     end
+
+    context "メールが重複(大文字と小文字の区別なし)するとき" do
+      it 'ユーザーはー正しくないか?' do
+        user_dup = FactoryBot.build(:user)
+        user_dup.email = user.email.upcase
+        user_dup.save
+        expect(user.save).to eq false
+      end
+    end
+
+    context "ユーザーのメールを登録するとき" do
+      it "メールが小文字になるか?" do
+        mixed_case_email = "Foo@ExAMPle.CoM"
+        user.email = mixed_case_email
+        user.save
+        expect(mixed_case_email.downcase).to eq user.reload.email
+      end
+    end
     
+    context "ユーザーのパスワードが空欄の時" do
+      it "ユーザー登録が失敗するか?" do
+        user.password = user.password_confirmation = " " * 6
+        is_expected.to eq false
+      end
+    end
+
+    context "ユーザーのパスワードが字数不足の時" do
+      it "ユーザー登録が失敗するか?" do
+        user.password = user.password_confirmation = "a" * 5
+        is_expected.to eq false
+      end
+    end
+
   end
   
 end

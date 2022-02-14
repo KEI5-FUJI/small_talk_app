@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_11_021441) do
+ActiveRecord::Schema.define(version: 2022_02_14_030404) do
 
   create_table "messagerooms", force: :cascade do |t|
     t.integer "owner_id"

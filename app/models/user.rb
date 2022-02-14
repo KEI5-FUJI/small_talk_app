@@ -68,6 +68,10 @@ class User < ApplicationRecord
     following.include?(other_user)
   end
 
+  def self.search(keyword)
+    where(["email like ?", "#{keyword}"])
+  end
+
   private
     def downcase_email
       self.email = email.downcase

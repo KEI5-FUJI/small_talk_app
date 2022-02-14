@@ -1,0 +1,14 @@
+<% provide(:title, "Search") %>
+<%= render 'layouts/header' %>
+
+<div class="row">
+  <aside class="col-md-4">
+    <section>
+      <h2>ユーザー検索<h2>
+    </section>
+    <%= render 'searches/search_form' %>
+  </aside>
+  <div class="col-md-8">
+    <%= render 'searches/search_result' %>
+  </div>
+</div>

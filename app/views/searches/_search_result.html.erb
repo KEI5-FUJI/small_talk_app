@@ -1,0 +1,7 @@
+<% if @user %>
+  <% @user.each do |user| %>
+  <div>
+    <%= link_to user.name, user_path(id: user.id) %>
+  </div>
+  <% end %>
+<% end %>

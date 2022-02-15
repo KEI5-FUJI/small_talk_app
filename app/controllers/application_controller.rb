@@ -11,7 +11,6 @@ class ApplicationController < ActionController::Base
   def not_logged_in_user
     if logged_in?
       store_location
-      flash[:danger] = "すでにログイン済みです"
       redirect_to user_path(id: current_user.id)
     end
   end

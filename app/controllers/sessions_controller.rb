@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
         redirect_to root_url
       end
     else 
-      flash[:danger] = "メールアドレスとパスワードの組み合わせが間違っています"
+      flash.now[:danger] = "メールアドレスとパスワードの組み合わせが間違っています"
       render 'new'
     end
   end

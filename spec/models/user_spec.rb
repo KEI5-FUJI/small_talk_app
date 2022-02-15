@@ -76,6 +76,13 @@ RSpec.describe User, type: :model do
       end
     end
 
+    context "記憶トークンがないとき"  do
+      it "authenticate?は失敗するか" do
+        user.save
+        expect(user.authenticated?(:remember, '')).to eq false
+      end
+    end
+
   end
   
 end

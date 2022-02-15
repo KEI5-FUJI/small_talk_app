@@ -30,5 +30,25 @@ RSpec.describe "Users", type: :request do
         end.to change{User.count}.from(0).to(1)
       end
     end
+
+    context "ログイン画面に行けるか" do
+      it "画面表示成功" do
+        get login_path
+        expect(response.status).to eq 200
+      end
+    end
+
+    context "ログイン失敗してフラッシュ出るか" do
+      it "フラッシュが存在する" do
+        get login_path
+        expect(response.status).to eq 200
+        post login_path, params: {session: {email: "", password: ""}}
+        expect(response.status).to eq 200
+        expect(flash[:danger]).to be_truthy
+        get root_path
+        expect(flash[:danger]).to be_falsey
+      end
+    end
+
   end
 end

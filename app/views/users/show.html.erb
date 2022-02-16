@@ -12,8 +12,8 @@
     <%= render 'follow_form' if logged_in? %>
   </aside>
     <div class="col-md-8">
-      <% if @user.tasks.any? %>
       <h3>投稿一覧 (<%= @user.tasks.count %>)</h3>
+      <% if @user.tasks.any? %>
       <ol class="tasks">
         <% @tasks.each do |task| %>
           <li id="投稿ナンバー-<%= task.id %>">

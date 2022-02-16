@@ -4,6 +4,7 @@ RSpec.describe "Users", type: :request do
   before do
     @user = FactoryBot.create(:user, :admin)
     @other_user = FactoryBot.create(:user)
+    @user_no_activate = FactoryBot.create(:user, :no_activate)
   end
 
   describe 'ユーザー登録' do
@@ -22,19 +23,19 @@ RSpec.describe "Users", type: :request do
       end
     end
     
-    context "正しい情報でユーザー登録" do
-      it '登録成功' do
-        get "/signup"
-        expect do
-          post users_path, params: {user: {
-            name:                  "Example User",
-            email:                 "user@example.com",
-            password:              "password",
-            password_confirmation: "password"
-          }}
-        end.to change{User.count}.from(0).to(1)
-      end
-    end
+    # context "正しい情報でユーザー登録" do
+    #   it '登録成功' do
+    #     get "/signup"
+    #     expect do
+    #       post users_path, params: {user: {
+    #         name:                  "Example User",
+    #         email:                 "user@example.com",
+    #         password:              "password",
+    #         password_confirmation: "password"
+    #       }}
+    #     end.to change{User.count}.from(0).to(1)
+    #   end
+    # end
 
     context "ログイン画面に行けるか" do
       it "画面表示成功" do
@@ -135,6 +136,20 @@ RSpec.describe "Users", type: :request do
       get users_path
       expect(response.body).not_to include("削除")
     end
+
+    it "ユーザー登録を行って、アカウント有効化" do
+      get signup_path
+      expect do
+        post users_path, params: {user:{ name:                  "Example User",
+                                         email:                 "user@example.com",
+                                         password:              "password",
+                                         password_confirmation: "password" } }
+      end.to change{User.count}.by(1)
+      expect(ActionMailer::Base.deliveries.size).to eq 1
+      expect(response).to redirect_to root_url
+      expect(is_logged_in?).to eq false
+    end
+
   end
 
 end

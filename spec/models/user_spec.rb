@@ -83,6 +83,12 @@ RSpec.describe User, type: :model do
       end
     end
 
+    context "digestがない時" do
+      it "authenticated?はfalseを返すか" do
+        expect(user.authenticated?(:remember, '')).to eq false
+      end
+    end
+
   end
   
 end

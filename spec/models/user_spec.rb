@@ -91,7 +91,7 @@ RSpec.describe User, type: :model do
 
   end
 
-  describe "タスクとの関係テスト" do
+  describe "タスクとの関係" do
     let(:user) {FactoryBot.build(:user)}
 
     before do
@@ -105,6 +105,40 @@ RSpec.describe User, type: :model do
       end.to change{Task.count}.by(-1)
     end
   end
-  
-  
+
+  describe "フィード" do
+    let(:user1) {FactoryBot.create(:user)}
+    let(:user2) {FactoryBot.create(:user)}
+    let(:user3) {FactoryBot.create(:user)}
+    let(:task1) {user1.tasks.create(content: "1のタスク")}
+    let(:task2) {user2.tasks.create(content: "2のタスク")}
+    let(:task3) {user3.tasks.create(content: "3のタスク")}
+    let!(:relationship1) {user1.active_relationships.create(followed_id: user2.id)}
+    
+    context "フォロー中ユーザーの投稿はフィードに含まれるか" do
+      it "含まれる" do
+        user2.tasks.each do |user2_task|
+          expect(user1.feed.include?(user2_task)).to eq true
+        end
+      end
+    end
+
+    context "自分の投稿はフィードに含まれるか" do
+      it "含まれる" do
+        user1.tasks.each do |user1_task|
+          expect(user1.feed.include?(user1_task)).to eq true
+        end
+      end
+    end
+
+    context "フォロー外ユーザーの投稿はフィードに含まれるか" do
+      it "含まれない" do
+        user3.tasks.each do |user3_task|
+          expect(user1.feed.include?(user3_task)).to eq false
+        end
+      end
+    end
+
+  end 
+ 
 end

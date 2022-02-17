@@ -162,4 +162,27 @@ RSpec.describe "Users", type: :request do
     end
   end
 
+  describe "フォロー中ユーザーが表示されるか" do
+    let(:user1) {FactoryBot.create(:user)}
+    let(:user2) {FactoryBot.create(:user)}
+    let(:user3) {FactoryBot.create(:user)}
+    let!(:relationships1) {user1.active_relationships.create(follower_id: user1.id, followed_id: user2.id)}
+    let!(:relationships2) {user1.active_relationships.create(follower_id: user1.id, followed_id: user3.id)}
+    let!(:relationships3) {user1.passive_relationships.create(follower_id: user2.id, followed_id: user1.id)}
+    let!(:relationships4) {user1.passive_relationships.create(follower_id: user3.id, followed_id: user1.id)}
+
+    before do
+      log_in_as(user1)
+    end
+
+    it "フォロー中ユーザーページ表示" do
+       get users_path
+       expect(user1.following.empty?).to eq false
+       expect(response.body).to match user1.following.count.to_s
+       user1.following.each do |user|
+        assert_select "a[href=?]", user_path(user)
+      end
+    end
+  end
+
 end

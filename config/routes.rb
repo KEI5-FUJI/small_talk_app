@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'password_resets/new'
+  get 'password_resets/edit'
   get 'messages/create'
   get 'sessions/login'
   get 'sessions/logout'
@@ -19,4 +21,5 @@ Rails.application.routes.draw do
   end
   resources :account_activations, only: [:edit]
   resources :relationships, only: [:create, :destroy]
+  resources :password_resets, only: [:new, :create, :edit, :update]
 end

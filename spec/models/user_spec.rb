@@ -90,5 +90,21 @@ RSpec.describe User, type: :model do
     end
 
   end
+
+  describe "タスクとの関係テスト" do
+    let(:user) {FactoryBot.build(:user)}
+
+    before do
+      user.save
+      user.tasks.create!(content: "Lorem ipsum")
+    end
+
+    it "ユーザーが消去されると、タスクも削除" do
+      expect do
+        user.destroy
+      end.to change{Task.count}.by(-1)
+    end
+  end
+  
   
 end

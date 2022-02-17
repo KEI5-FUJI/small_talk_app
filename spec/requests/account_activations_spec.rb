@@ -38,6 +38,8 @@ RSpec.describe "AccountActivations", type: :request do
       expect(response.body).to include("投稿一覧")
       expect(is_logged_in?).to eq true
     end
+
+    
   end
 
 end

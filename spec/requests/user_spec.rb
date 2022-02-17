@@ -152,4 +152,14 @@ RSpec.describe "Users", type: :request do
 
   end
 
+
+  describe "ログイン後描写" do
+    it "個人ページ描写" do
+      log_in_as(@user)
+      get user_path(@user)
+      assert_select 'h1', text: @user.name
+      assert_match @user.tasks.count.to_s, response.body
+    end
+  end
+
 end

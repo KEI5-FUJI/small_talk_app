@@ -25,7 +25,7 @@ class MessagesController < ApplicationController
       owner = User.find(@messageroom.owner_id)
       guest = User.find(@messageroom.guest_id)
       unless current_user == owner || current_user == guest
-        redirect_to tasks_path
+        redirect_to tasks_url
       end
     end
 

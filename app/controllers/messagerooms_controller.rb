@@ -12,14 +12,13 @@ class MessageroomsController < ApplicationController
     if not_created_messageroom?(@task)
        @messageroom=@task.messagerooms.build(owner_id: @task.user_id, guest_id: current_user.id)
        if @messageroom.save
-        @task.request_count += 1
         redirect_to task_messageroom_url(@task.id, @messageroom.id)
        else
         flash[:danger] = "メッセージルームの作成に失敗しました。"
         redirect_back_or tasks_url
        end
     else
-       task_messageroom_url(@task.messagerooms.find_by(owner_id: @task.user_id, guest_id: current_user.id))
+      redirect_to task_messageroom_url(@task.messagerooms.find_by(owner_id: @task.user_id, guest_id: current_user.id))
     end
   end
 
@@ -55,7 +54,7 @@ class MessageroomsController < ApplicationController
 
     def is_task_messageroom_list_current_user
       unless current_user == Task.find(params[:task_id]).user
-        redirect_back_or tasks_path
+        redirect_back_or tasks_url
       end
     end
 
@@ -64,7 +63,7 @@ class MessageroomsController < ApplicationController
       owner = User.find(@messageroom.owner_id)
       guest = User.find(@messageroom.guest_id)
       unless current_user == owner || current_user == guest
-        redirect_back_or tasks_path
+        redirect_back_or tasks_url
       end
     end
 
@@ -72,14 +71,14 @@ class MessageroomsController < ApplicationController
       @messageroom = Messageroom.find(params[:id])
       owner = User.find(@messageroom.owner_id)
       unless current_user == owner
-        redirect_back_or tasks_path
+        redirect_back_or tasks_url
       end
     end
 
     def is_follower_of_owner
       owner = Task.find(params[:task_id]).user
       unless owner.followers.include?(current_user)
-        redirect_back_or tasks_path
+        redirect_back_or tasks_url
       end
     end
 end

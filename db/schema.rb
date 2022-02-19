@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_16_061042) do
+ActiveRecord::Schema.define(version: 2022_02_18_060331) do
 
   create_table "messagerooms", force: :cascade do |t|
-    t.integer "owner_id"
-    t.integer "guest_id"
+    t.integer "owner_id", null: false
+    t.integer "guest_id", null: false
     t.integer "task_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

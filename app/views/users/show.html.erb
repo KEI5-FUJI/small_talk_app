@@ -16,7 +16,7 @@
       <% if @user.tasks.any? %>
       <ol class="tasks">
         <% @tasks.each do |task| %>
-          <li id="投稿ナンバー-<%= task.id %>">
+          <li id="依頼ナンバー-<%= task.id %>">
             <span class="user"><%= link_to task.user.name, task.user %></span>
             <span class="content"><%= task.content %></span>
             <span class="timestamp">
@@ -24,7 +24,7 @@
             </span>
             <% if current_user?(task.user) %>
               <%= link_to "削除", task, method: :delete, data: { confirm: "削除します。大丈夫ですか?" } %>
-              <%= link_to "タスクのメッセージルーム一覧へ", task_messagerooms_path(task_id: task.id) %>
+              <%= link_to "依頼のメッセージルーム一覧へ", task_messagerooms_path(task_id: task.id) %>
             <% end %>
             <% unless is_current_user_task?(task) %>
               <% if task.user.followers.include?(current_user) %>
